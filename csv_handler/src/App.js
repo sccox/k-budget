@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import PreviewTable from "./PreviewTable";
 import { Button, Typography } from "@mui/material";
+import SortTable from "./Sort";
 function App() {
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
@@ -17,11 +18,9 @@ function App() {
 
   const handleOnChange = (e) => {
     setUploadLocked(true);
-    console.log("active");
     e.preventDefault();
     let newFile = e.target.files[0];
     setFile(newFile);
-    console.log(newFile);
 
     if (newFile) {
       fileReader.onload = function (e) {
@@ -117,33 +116,9 @@ function App() {
       </Button>
 
       <br />
-      {/* {file && (
-        <Typography sx={{ my: 1 }}>
-          <strong>Viewing: </strong>
-          {file.name}
-        </Typography>
-      )} */}
 
-      {array.length > 0 && <PreviewTable objects={array} />}
-      {/* <table>
-         <thead>
-           <tr key={"header"}>
-             {headerKeys.map((key) => (
-               <th>{key}</th>
-             ))}
-           </tr>
-         </thead>
- 
-         <tbody>
-           {array.map((item) => (
-             <tr key={item.id}>
-               {Object.values(item).map((val) => (
-                 <td>{val}</td>
-               ))}
-             </tr>
-           ))}
-         </tbody>
-       </table> */}
+      {/* {array.length > 0 && <PreviewTable objects={array} />} */}
+      {array.length > 0 && <SortTable objects={array} />}
     </div>
   );
 }

@@ -10,6 +10,8 @@ import { Container, Button, Alert, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import ClearIcon from "@mui/icons-material/Clear";
+import configureHeaders from "./functions/headerConfiguration";
+
 const optionsAccepted = [
   "Transaction Date",
   "Posts Date",
@@ -81,13 +83,6 @@ export default function PreviewTable({ objects }) {
     setAlerts(newAlerts);
   };
 
-  function headerNewAssignments(original) {
-    if (optionsAccepted.includes(original)) {
-      return original;
-    }
-    return undefined;
-  }
-
   const adjustHeaderValues = (original, newValue) => {
     let newMapping = headers.map((el) =>
       el.original === original ? { ...el, new: newValue } : el
@@ -96,22 +91,9 @@ export default function PreviewTable({ objects }) {
     // handleAlerts(newMapping);
   };
 
-  const handleHeaderSettings = () => {
-    let h = Object.keys(Object.assign({}, ...rows));
-    let newList = [];
-    h.forEach(function (entry) {
-      let obj = {};
-      obj["original"] = entry;
-      obj["new"] = headerNewAssignments(entry);
-      newList.push(obj);
-    });
-    setHeaders(newList);
-    // handleAlerts(newList);
-  };
-
   React.useEffect(() => {
     if (headers === null) {
-      handleHeaderSettings();
+      setHeaders(configureHeaders(rows));
     } else {
       handleAlerts(headers);
     }
