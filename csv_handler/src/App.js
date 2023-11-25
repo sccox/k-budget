@@ -11,10 +11,12 @@ import { Button, Typography } from "@mui/material";
 function App() {
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
+  const [uploadLocked, setUploadLocked] = useState(false);
 
   const fileReader = new FileReader();
 
   const handleOnChange = (e) => {
+    setUploadLocked(true);
     console.log("active");
     e.preventDefault();
     let newFile = e.target.files[0];
@@ -48,6 +50,7 @@ function App() {
   };
 
   const clear = () => {
+    setUploadLocked(false);
     setArray([]);
     setFile();
   };
@@ -84,7 +87,13 @@ function App() {
       </form>
 
       <label htmlFor="csvFileInput">
-        <Button variant="contained" component="span" color="primary">
+        <Button
+          variant="contained"
+          component="span"
+          color="primary"
+          disabled={uploadLocked}
+          sx={{ textTransform: "none" }}
+        >
           Upload
         </Button>
       </label>
@@ -95,9 +104,16 @@ function App() {
         variant="outlined"
         color="error"
         size="small"
-        sx={{ ml: 1 }}
+        sx={{ ml: 1, textTransform: "none" }}
       >
         Clear
+      </Button>
+      <Button
+        variant="contained"
+        size="small"
+        sx={{ ml: 1, textTransform: "none" }}
+      >
+        Next Step
       </Button>
 
       <br />

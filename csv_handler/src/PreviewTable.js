@@ -71,7 +71,11 @@ export default function PreviewTable({ objects }) {
       newAlerts.push("Each column must be unique.");
     }
     if (checkRequiredHeaders(headers)) {
-      newAlerts.push(`Columns must include ${JSON.stringify(optionsRequired)}`);
+      newAlerts.push(
+        `Columns must at least include: ${JSON.stringify(
+          optionsRequired
+        )}. Values can be edited in later steps.`
+      );
     }
     newAlerts = [...new Set(newAlerts)];
     setAlerts(newAlerts);
@@ -108,8 +112,9 @@ export default function PreviewTable({ objects }) {
   React.useEffect(() => {
     if (headers === null) {
       handleHeaderSettings();
+    } else {
+      handleAlerts(headers);
     }
-    handleAlerts(headers);
   }, [headers, rows]);
 
   return (
