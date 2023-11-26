@@ -14,17 +14,19 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 650,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
   borderRadius: 2,
 };
 
-export default function RuleModal({ column, value, open, handleClose }) {
+export default function RuleModal({ col, val, open, handleClose, handleOpen }) {
+  const [column, setColumn] = React.useState(col);
+  const [value, setValue] = React.useState(val);
+
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -38,30 +40,63 @@ export default function RuleModal({ column, value, open, handleClose }) {
           <Typography>Any transaction where column:</Typography>
           <Autocomplete
             disablePortal
+            value={col ? col : cols[1]}
             id="combo-box-demo"
             options={cols}
-            sx={{ width: 300, mt: 1 }}
+            sx={{ width: 200, mt: 1, mr: 1, display: "inline-block" }}
             renderInput={(params) => <TextField {...params} label="Column" />}
           />
           <Autocomplete
             disablePortal
-            id="combo-box-demo"
+            defaultValue={operators[0]}
+            id="combo-box-demo2"
             options={operators}
-            sx={{ width: 300, mt: 1 }}
+            sx={{ width: 200, mt: 1, mr: 1, display: "inline-block" }}
             renderInput={(params) => <TextField {...params} label="Operator" />}
           />
           <TextField
             id="outlined-basic"
-            sx={{ width: 300, mt: 1 }}
+            sx={{ width: 200, mt: 1, display: "inline-block" }}
             label="Value"
             variant="outlined"
+            defaultValue={val}
           />
+          <Typography sx={{ mt: 2 }}>Will be categorized as:</Typography>
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo2"
+            options={categories}
+            sx={{ width: 200, mt: 1, mr: 1, display: "inline-block" }}
+            renderInput={(params) => <TextField {...params} label="Category" />}
+          />
+          <br />
+          <Button
+            variant="outlined"
+            sx={{ mr: 1, mt: 1, textTransform: "none" }}
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{ mr: 1, mt: 1, textTransform: "none" }}
+          >
+            Apply Once
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ mr: 1, mt: 1, textTransform: "none" }}
+          >
+            Apply and Save
+          </Button>
         </Box>
       </Modal>
     </div>
   );
 }
 
-const cols = [{ label: "Memo" }, { label: "Description" }, { label: "Amount" }];
+const cols = ["Description", "Amount", "Type", "Memo", "Category"];
 
-const operators = [{ label: "equals" }, { label: "contains" }];
+const operators = ["equals", "contains"];
+
+const categories = ["Gas", "Groceries"];

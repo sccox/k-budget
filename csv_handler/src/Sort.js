@@ -141,13 +141,27 @@ export default function SortTable({ objects }) {
     }
   }, [headers, rows]);
 
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
+  const [open, setOpen] = React.useState(false);
+  const [column, setColumn] = React.useState(null);
+  const [value, setValue] = React.useState(null);
+  const handleOpen = (col, val) => {
+    setColumn(col);
+    setValue(val);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   return (
     <>
-      <RuleModal open={open} handleClose={handleClose} />
+      {open && (
+        <RuleModal
+          open={open}
+          handleClose={handleClose}
+          col={column}
+          val={value}
+        />
+      )}
+
       <TableContainer component={Paper} sx={{ height: 500 }}>
         {headers && (
           <Table
@@ -192,7 +206,11 @@ export default function SortTable({ objects }) {
                         <Tooltip
                           title={`Create a rule for transactions with this ${key}`}
                         >
-                          <IconButton aria-label="delete" color="primary">
+                          <IconButton
+                            aria-label="delete"
+                            color="primary"
+                            onClick={() => handleOpen(key, item[key])}
+                          >
                             <GavelIcon />
                           </IconButton>
                         </Tooltip>
