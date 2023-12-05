@@ -14,13 +14,10 @@ import configureHeaders from "./functions/headerConfiguration";
 
 const optionsAccepted = [
   "Transaction Date",
-  "Posts Date",
   "Description",
   "Category",
-  "Type",
   "Amount",
   "Memo",
-  "Account Balance",
 ];
 
 const optionsRequired = ["Transaction Date", "Description", "Amount"];

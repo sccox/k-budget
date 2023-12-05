@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import PreviewTable from "./PreviewTable";
+import GavelIcon from "@mui/icons-material/Gavel";
+
 import { Button, Typography } from "@mui/material";
-import SortTable from "./Sort";
+import SortTable from "./SortTable";
 function App() {
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
@@ -118,7 +112,8 @@ function App() {
       <br />
 
       {/* {array.length > 0 && <PreviewTable objects={array} />} */}
-      {array.length > 0 && <SortTable objects={array} />}
+      {/* {array.length > 0 && <SortTable objects={array} />} */}
+      <SortTable objects={array} />
     </div>
   );
 }
